@@ -277,18 +277,22 @@ ol.dom.transformElement2D =
     s += ')';
     ol.dom.setIEMatrix_(element, s);
 
-    // scale = m11 = m22 = target resolution [m/px] / current res [m/px]
-    // dx = (viewport width [px] / 2) * scale
-    //      + (layer.x [m] - view.x [m]) / target resolution [m / px]
-    // except that we're positioning the child element relative to the
-    // viewport, not the map.
-    // dividing by the scale factor isn't the exact correction, but it's
-    // close enough that you can barely tell unless you're looking for it
-    dx /= m11;
-    dy /= m22;
+    // Some routes in here don't actually pass through an optional transition element
+    //  so skip this section unless one is set
+    if (opt_translationElement) {
+      // scale = m11 = m22 = target resolution [m/px] / current res [m/px]
+      // dx = (viewport width [px] / 2) * scale
+      //      + (layer.x [m] - view.x [m]) / target resolution [m / px]
+      // except that we're positioning the child element relative to the
+      // viewport, not the map.
+      // dividing by the scale factor isn't the exact correction, but it's
+      // close enough that you can barely tell unless you're looking for it
+      dx /= m11;
+      dy /= m22;
 
-    opt_translationElement.style.left = Math.round(dx) + 'px';
-    opt_translationElement.style.top = Math.round(dy) + 'px';
+      opt_translationElement.style.left = Math.round(dx) + 'px';
+      opt_translationElement.style.top = Math.round(dy) + 'px';
+    }
   } else {
     element.style.left =
         Math.round(goog.vec.Mat4.getElement(transform, 0, 3)) + 'px';

@@ -1,0 +1,10 @@
+{
+  "exports": ["*"],
+  "compile": {
+    "define": [
+      "ol.LEGACY_IE_SUPPORT=true",
+      "goog.array.ASSUME_NATIVE_FUNCTIONS=false"
+    ]
+  },
+  "umd": true
+}
